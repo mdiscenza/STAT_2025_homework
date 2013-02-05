@@ -1,0 +1,145 @@
+%% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\usepackage{breakurl}
+\begin{document}
+
+<<setup, include=FALSE, cache=FALSE>>=
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(replace.assign=TRUE,width=90)
+@
+
+
+\title{Stat 2025- HW 2}
+\author{Michael Discenza}
+
+\maketitle
+
+\section{Best-subset Model Selection using Cross-validation}
+I first load the library that will help with the cross-validation and then I import houseprice dataset into R
+<<start,message=FALSE>>=
+library(DAAG)
+houseprices <- read.delim("http://www.stat.columbia.edu/~madigan/W2025/data/houseprices.txt")
+@
+
+Next, I define two helper functions. The first, which is based on the source from Hadley Wickham's Meify Package (see \url{https://github.com/hadley/meifly/blob/master/R/generate.r}) returns all possible simple linear models that can be made from the set of predictors:
+
+
+<<ball_possible_models>>=
+all_possible_models <- function(x.column.names, y.col.name){
+    Cols <- x.column.names
+    n <- length(Cols)
+    id <- unlist(
+        lapply(1:n,
+               function(i)combn(1:n,i,simplify=F)
+        )
+        ,recursive=F)
+    Formulas <- sapply(id,function(i)
+        paste(y.col.name, "~",paste(Cols[i],collapse="+"))
+    )
+}
+@
+
+
+The second function does five-fold cross vaidation on the data set for a given model (formula) input and returns the cross-validated means squared error:
+<<apply_formula>>=
+apply_formula <- function(model, cv=5){ #make the default value for this function 5
+    cv.model <- CVlm(houseprices,lm(model, data=houseprices),m=cv)
+    cvmse <-mean(abs(cv.model$sale.price - cv.model$cvpred)) 
+}
+@
+
+I then combine these functions to return the cross-validated mean squared error for the all of the possible simple linear models:
+<<gettingResults, results='hide', message=FALSE, warning=FALSE, fig.keep='none'>>=
+FORMULAS <- all_possible_models(x.column.names=colnames(houseprices[1:3]),
+                                y.col.name=colnames(houseprices[4]))
+CV.MSE <- lapply(FORMULAS, apply_formula)
+final.results <- cbind(FORMULAS, CV.MSE)
+@
+
+<<print_results>>=
+final.results
+@
+
+Comparing the cross-validated mean squared errors for each model, we can see that the best simple linear model is \Sexpr{FORMULAS[7]}.  A summary of this model is shown below:
+<<optimal_model>>=
+lm.optimatal <- lm(sale.price ~ area+bedrooms, data=houseprices)
+summary(lm.optimatal)
+@
+\pagebreak
+\section{Checking Assumptions for Linear Regression}
+First we check for to see that we were correct in assuming that the relationship is linear. One test we can conduct is plotting our our observed values for sale price against our predicted values for sale price.  Here we see that the points seem fairly randomoly distributed around the line through the diagonal so we can accept the linearity assumption. Another test for linearity is plotting residuals versus our preidcted values.  Below, this plot, the one to the right, is really only a rotation of the plot on the left. It seems as though there is slightly more of a pattern than we might have been able to visually identify before.  This casts some doubt on our linearity assumption.
+<<modelAssumptions1,fig.width=7.5, fig.height=4, echo=FALSE, message=FALSE, warning=FALSE,results='hide'>>=
+par(mfrow = c(1, 2))
+plot(lm.optimatal$fitted.values ~ houseprices$sale.price, cex.main=.9, 
+     main="Observed Sale Price vs. Predicted Sale Price",
+     xlab="Observed Sale Price (in thousands of $)", 
+     ylab="Predicted Sale Price (in thousands of $)" ) + abline(coef=c(0,1))
+plot(lm.optimatal$residuals~houseprices$sale.price, cex.main=.9,
+     main="Residuals against Sale Price",
+     xlab="Sale Price (in thousands of $)", 
+     ylab="Residual") + abline(h=0)
+@
+
+
+\pagebreak
+An additional assumption that we need to check is homoscedasticity, the constant variance of home sale prices across different values of home area and number of bedrooms.  Below, it seems that in larger houses there is less variance around the fitted values.  This, however, is due to the fact that these larger houses are influential points, which have the effect of pulling the line through (or at least closely around) themselves. Ideally, there would be more houses throughout the range of the variables so that the relationships we identified are not merely the product of a few extreme data points.
+<<modelAssumptions3, fig.width=7.4, fig.height=4, echo=FALSE, message=FALSE, warning=FALSE,results='hide' >>=
+par(mfrow = c(1, 2))
+plot(lm.optimatal$residuals~houseprices$area, 
+     main="Residuals against Area",
+     xlab="Area", 
+     ylab="Residual") + abline(h=0)
+plot(lm.optimatal$residuals~houseprices$bedrooms,
+     main="Residuals against Bedrooms",
+     xlab="Number of Bedrooms", 
+     ylab="Residual") + abline(h=0)
+@
+Finally, we test the assumption that residuals are noramlly distributed about the fitted regression line.  To analyze this relationship visually, we examine a "qqnorm" plot, which helps us compare the distribution of the scaled residuals to that of the standard normal distribution.  On the tails, there seems to be significant deviation from the normal distribution.
+<<modelAssumptions2, fig.width=3, fig.height=3, echo=FALSE, message=FALSE, warning=FALSE >>=
+plot(lm.optimatal, which=2)
+@
+
+\pagebreak
+\section{Confidence Interval for the Average Home Price}
+<<confidenceInterval>>=
+nd <- data.frame(floors=2,area=1000, bedrooms=4)
+confidence_interval <- predict(lm.optimatal,interval="confidence",newdata=nd, level=.95)
+confidence_interval
+@
+The confidence interval for the average price of two-floor, 1000 square foot house with 4 bedrooms is (209, 260), centered around 234.
+
+\section{Prediction Interval for a Home's Price}
+<<PredictionInterval>>=
+nd <- data.frame(floors=2,area=1000, bedrooms=4)
+prediction_interval <- predict(lm.optimatal,interval="prediction",newdata=nd, level=.95)
+prediction_interval
+@
+The prediction interval for the price of a single two-floor, 1000 square foot house with 4 bedrooms is (158, 310), centered around 234.
+
+\section{Comparison between Confidence and Prediction Intervals}
+The prediction internval is wider than the confidence interval for houses with the same predictor values because for a confidence interval, uncertainty comes only from the imperfection of the model that is fit to the data, but in the case of a prediction interval,there is  variability that is introduced by picking one single observation and not the average of all observations.
+
+\section{References}
+
+\begin{itemize}
+    \item I used the following site as reference for assumptions of linear regression:
+    \url{http://people.duke.edu/~rnau/testing.htm}.
+    \item The full source for this homework without the markup can be found at \url{https://github.com/yihui/knitr/blob/master/inst/examples/knitr-minimal.Rnw}.
+\end{itemize}
+
+
+\end{document}
