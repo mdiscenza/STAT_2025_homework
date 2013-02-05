@@ -138,7 +138,7 @@ The prediction internval is wider than the confidence interval for houses with t
 \begin{itemize}
     \item I used the following site as reference for assumptions of linear regression:
     \url{http://people.duke.edu/~rnau/testing.htm}.
-    \item The full source for this homework without the markup can be found at \url{https://github.com/yihui/knitr/blob/master/inst/examples/knitr-minimal.Rnw}.
+    \item The full source for this homework without the markup can be found at \url{https://github.com/mdiscenza/STAT_2025_homework/blob/master/HW2/hw2_script.R}.
 \end{itemize}
 
 
