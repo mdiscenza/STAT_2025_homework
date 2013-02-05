@@ -98,11 +98,17 @@ Next, I define two helper functions. The first, which is based on the source fro
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-all_possible_models <- \hlfunctioncall{function}(x.column.names, y.col.name) \{
+all_possible_models <- \hlfunctioncall{function}(x.column.names, y.col.name)\{
     Cols <- x.column.names
     n <- \hlfunctioncall{length}(Cols)
-    id <- \hlfunctioncall{unlist}(\hlfunctioncall{lapply}(1:n, \hlfunctioncall{function}(i) \hlfunctioncall{combn}(1:n, i, simplify = F)), recursive = F)
-    Formulas <- \hlfunctioncall{sapply}(id, \hlfunctioncall{function}(i) \hlfunctioncall{paste}(y.col.name, \hlstring{"~"}, \hlfunctioncall{paste}(Cols[i], collapse = \hlstring{"+"})))
+    id <- \hlfunctioncall{unlist}(
+        \hlfunctioncall{lapply}(1:n,
+               \hlfunctioncall{function}(i)\hlfunctioncall{combn}(1:n,i,simplify=F)
+        )
+        ,recursive=F)
+    Formulas <- \hlfunctioncall{sapply}(id,\hlfunctioncall{function}(i)
+        \hlfunctioncall{paste}(y.col.name, \hlstring{"~"},\hlfunctioncall{paste}(Cols[i],collapse=\hlstring{"+"}))
+    )
 \}
 \end{alltt}
 \end{kframe}
@@ -114,10 +120,9 @@ The second function does five-fold cross vaidation on the data set for a given m
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-apply_formula <- \hlfunctioncall{function}(model, cv = 5) \{
-\hlcomment{    #make the default value for this function 5}
-    cv.model <- \hlfunctioncall{CVlm}(houseprices, \hlfunctioncall{lm}(model, data = houseprices), m = cv)
-    cvmse <- \hlfunctioncall{mean}(\hlfunctioncall{abs}(cv.model$sale.price - cv.model$cvpred))
+apply_formula <- \hlfunctioncall{function}(model, cv=5)\{ \hlcomment{#make the default value for this function 5}
+    cv.model <- \hlfunctioncall{CVlm}(houseprices,\hlfunctioncall{lm}(model, data=houseprices),m=cv)
+    cvmse <-\hlfunctioncall{mean}(\hlfunctioncall{abs}(cv.model$sale.price - cv.model$cvpred)) 
 \}
 \end{alltt}
 \end{kframe}
@@ -128,7 +133,8 @@ I then combine these functions to return the cross-validated mean squared error 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-FORMULAS <- \hlfunctioncall{all_possible_models}(x.column.names = \hlfunctioncall{colnames}(houseprices[1:3]), y.col.name = \hlfunctioncall{colnames}(houseprices[4]))
+FORMULAS <- \hlfunctioncall{all_possible_models}(x.column.names=\hlfunctioncall{colnames}(houseprices[1:3]),
+                                y.col.name=\hlfunctioncall{colnames}(houseprices[4]))
 CV.MSE <- \hlfunctioncall{lapply}(FORMULAS, apply_formula)
 final.results <- \hlfunctioncall{cbind}(FORMULAS, CV.MSE)
 \end{alltt}
@@ -233,8 +239,9 @@ Finally, we test the assumption that residuals are noramlly distributed about th
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-nd <- \hlfunctioncall{data.frame}(floors = 2, area = 1000, bedrooms = 4)
-confidence_interval <- \hlfunctioncall{predict}(lm.optimatal, interval = \hlstring{"confidence"}, newdata = nd, level = 0.95)
+nd <- \hlfunctioncall{data.frame}(floors=2,area=1000, bedrooms=4)
+confidence_interval <- \hlfunctioncall{predict}(lm.optimatal,interval=\hlstring{"confidence"},
+                               newdata=nd, level=.95)
 confidence_interval
 \end{alltt}
 \begin{verbatim}
@@ -250,8 +257,9 @@ The confidence interval for the average price of two-floor, 1000 square foot hou
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-nd <- \hlfunctioncall{data.frame}(floors = 2, area = 1000, bedrooms = 4)
-prediction_interval <- \hlfunctioncall{predict}(lm.optimatal, interval = \hlstring{"prediction"}, newdata = nd, level = 0.95)
+nd <- \hlfunctioncall{data.frame}(floors=2,area=1000, bedrooms=4)
+prediction_interval <- \hlfunctioncall{predict}(lm.optimatal,interval=\hlstring{"prediction"},
+                               newdata=nd, level=.95)
 prediction_interval
 \end{alltt}
 \begin{verbatim}

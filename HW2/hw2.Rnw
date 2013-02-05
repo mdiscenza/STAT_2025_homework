@@ -38,7 +38,7 @@ houseprices <- read.delim("http://www.stat.columbia.edu/~madigan/W2025/data/hous
 Next, I define two helper functions. The first, which is based on the source from Hadley Wickham's Meify Package (see \url{https://github.com/hadley/meifly/blob/master/R/generate.r}) returns all possible simple linear models that can be made from the set of predictors:
 
 
-<<ball_possible_models>>=
+<<ball_possible_models, tidy=FALSE>>=
 all_possible_models <- function(x.column.names, y.col.name){
     Cols <- x.column.names
     n <- length(Cols)
@@ -55,7 +55,7 @@ all_possible_models <- function(x.column.names, y.col.name){
 
 
 The second function does five-fold cross vaidation on the data set for a given model (formula) input and returns the cross-validated means squared error:
-<<apply_formula>>=
+<<apply_formula,tidy=FALSE>>=
 apply_formula <- function(model, cv=5){ #make the default value for this function 5
     cv.model <- CVlm(houseprices,lm(model, data=houseprices),m=cv)
     cvmse <-mean(abs(cv.model$sale.price - cv.model$cvpred)) 
@@ -63,7 +63,7 @@ apply_formula <- function(model, cv=5){ #make the default value for this functio
 @
 
 I then combine these functions to return the cross-validated mean squared error for the all of the possible simple linear models:
-<<gettingResults, results='hide', message=FALSE, warning=FALSE, fig.keep='none'>>=
+<<gettingResults, results='hide', message=FALSE, warning=FALSE, fig.keep='none', tidy=FALSE>>=
 FORMULAS <- all_possible_models(x.column.names=colnames(houseprices[1:3]),
                                 y.col.name=colnames(houseprices[4]))
 CV.MSE <- lapply(FORMULAS, apply_formula)
@@ -115,17 +115,19 @@ plot(lm.optimatal, which=2)
 
 \pagebreak
 \section{Confidence Interval for the Average Home Price}
-<<confidenceInterval>>=
+<<confidenceInterval, tidy=FALSE>>=
 nd <- data.frame(floors=2,area=1000, bedrooms=4)
-confidence_interval <- predict(lm.optimatal,interval="confidence",newdata=nd, level=.95)
+confidence_interval <- predict(lm.optimatal,interval="confidence",
+                               newdata=nd, level=.95)
 confidence_interval
 @
 The confidence interval for the average price of two-floor, 1000 square foot house with 4 bedrooms is (209, 260), centered around 234.
 
 \section{Prediction Interval for a Home's Price}
-<<PredictionInterval>>=
+<<PredictionInterval, tidy=FALSE>>=
 nd <- data.frame(floors=2,area=1000, bedrooms=4)
-prediction_interval <- predict(lm.optimatal,interval="prediction",newdata=nd, level=.95)
+prediction_interval <- predict(lm.optimatal,interval="prediction",
+                               newdata=nd, level=.95)
 prediction_interval
 @
 The prediction interval for the price of a single two-floor, 1000 square foot house with 4 bedrooms is (158, 310), centered around 234.

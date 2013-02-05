@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  4 FEB 2013 22:13
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  4 FEB 2013 22:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -495,97 +495,75 @@ File: omscmtt.fd
 )
 LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
+Package color Info: Redefining color shadecolor on input line 121.
+Package color Info: Redefining color shadecolor on input line 134.
+Package color Info: Redefining color shadecolor on input line 146.
 
-Overfull \hbox (21.46446pt too wide) in paragraph at lines 105--105
-[]    \OT1/cmtt/m/n/10 Formulas <- []sapply[](id, []function[](i) []paste[](y.c
-ol.name, []"~"[], []paste[](Cols[i], collapse = []"+"[])))[] 
- []
-
-Package color Info: Redefining color shadecolor on input line 115.
-Package color Info: Redefining color shadecolor on input line 129.
-
-Overfull \hbox (131.7135pt too wide) in paragraph at lines 131--131
-[]\OT1/cmtt/m/n/10 FORMULAS <- []all_possible_models[](x.column.names = []colna
-mes[](houseprices[1:3]), y.col.name = []colnames[](houseprices[4]))[] 
- []
-
-Package color Info: Redefining color shadecolor on input line 140.
-Package color Info: Redefining color shadecolor on input line 160.
 [1
 
 {/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 185
+Package color Info: Redefining color shadecolor on input line 166.
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 191
 .
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) [2]
-Package color Info: Redefining color shadecolor on input line 193.
+Package color Info: Redefining color shadecolor on input line 199.
 
 <figure/minimal-modelAssumptions1.pdf, id=43, 542.025pt x 289.08pt>
 File: figure/minimal-modelAssumptions1.pdf Graphic file (type pdf)
 
 <use figure/minimal-modelAssumptions1.pdf>
 Package pdftex.def Info: figure/minimal-modelAssumptions1.pdf used on input lin
-e 195.
+e 201.
 (pdftex.def)             Requested size: 472.03123pt x 251.75781pt.
  [3 <./figure/minimal-modelAssumptions1.pdf>]
-Package color Info: Redefining color shadecolor on input line 208.
+Package color Info: Redefining color shadecolor on input line 214.
  <figure/minimal-modelAssumptions3.pdf, id=54, 533.995pt x 289.08pt>
 File: figure/minimal-modelAssumptions3.pdf Graphic file (type pdf)
 
 <use figure/minimal-modelAssumptions3.pdf>
 Package pdftex.def Info: figure/minimal-modelAssumptions3.pdf used on input lin
-e 210.
+e 216.
 (pdftex.def)             Requested size: 472.03123pt x 255.54686pt.
-Package color Info: Redefining color shadecolor on input line 220.
+Package color Info: Redefining color shadecolor on input line 226.
 
 <figure/minimal-modelAssumptions2.pdf, id=55, 216.81pt x 216.81pt>
 File: figure/minimal-modelAssumptions2.pdf Graphic file (type pdf)
 
 <use figure/minimal-modelAssumptions2.pdf>
 Package pdftex.def Info: figure/minimal-modelAssumptions2.pdf used on input lin
-e 222.
+e 228.
 (pdftex.def)             Requested size: 216.80946pt x 216.81938pt.
  [4 <./figure/minimal-modelAssumptions3.pdf> <./figure/minimal-modelAssumptions
 2.pdf>]
-Package color Info: Redefining color shadecolor on input line 234.
-
-Overfull \hbox (37.21432pt too wide) in paragraph at lines 237--237
-[]\OT1/cmtt/m/n/10 confidence_interval <- []predict[](lm.optimatal, interval = 
-[]"confidence"[], newdata = nd, level = 0.95)[] 
- []
-
-Package color Info: Redefining color shadecolor on input line 251.
-
-Overfull \hbox (37.21432pt too wide) in paragraph at lines 254--254
-[]\OT1/cmtt/m/n/10 prediction_interval <- []predict[](lm.optimatal, interval = 
-[]"prediction"[], newdata = nd, level = 0.95)[] 
- []
-
-LaTeX Font Info:    Try loading font information for TS1+pplx on input line 272
+Package color Info: Redefining color shadecolor on input line 240.
+Package color Info: Redefining color shadecolor on input line 258.
+LaTeX Font Info:    Try loading font information for TS1+pplx on input line 280
 .
+
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ts1pplx.fd
 File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 278.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 286.
  [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 278.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 286.
  (./hw2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 278.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 278.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 286.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 286.
 Package rerunfilecheck Info: File `hw2.out' has not changed.
 (rerunfilecheck)             Checksum: 3C91AAE3CCBDA4E8870F9B5C8CB91FED;1602.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 278.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 286.
  ) 
 Here is how much of TeX's memory you used:
  7654 strings out of 493488
  109691 string characters out of 3141326
- 189628 words of memory out of 3000000
+ 191628 words of memory out of 3000000
  10851 multiletter control sequences out of 15000+200000
  22502 words of font info for 59 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 31i,6n,35p,699b,361s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,6n,35p,699b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }{/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
@@ -593,7 +571,7 @@ live/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texl
 ive/2012/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texliv
 e/2012/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2012/
 texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on hw2.pdf (5 pages, 108828 bytes).
+Output written on hw2.pdf (5 pages, 108865 bytes).
 PDF statistics:
  103 PDF objects out of 1000 (max. 8388607)
  84 compressed objects within 1 object stream
