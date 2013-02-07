@@ -122,7 +122,7 @@ The second function does five-fold cross vaidation on the data set for a given m
 \begin{alltt}
 apply_formula <- \hlfunctioncall{function}(model, cv=5)\{ \hlcomment{#make the default value for this function 5}
     cv.model <- \hlfunctioncall{CVlm}(houseprices,\hlfunctioncall{lm}(model, data=houseprices),m=cv)
-    cvmse <-\hlfunctioncall{mean}(\hlfunctioncall{abs}(cv.model$sale.price - cv.model$cvpred)) 
+    cvmse <-\hlfunctioncall{mean}((cv.model$sale.price - cv.model$cvpred)^2) 
 \}
 \end{alltt}
 \end{kframe}
@@ -133,14 +133,16 @@ I then combine these functions to return the cross-validated mean squared error 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-FORMULAS <- \hlfunctioncall{all_possible_models}(x.column.names=\hlfunctioncall{colnames}(houseprices[1:3]),
-                                y.col.name=\hlfunctioncall{colnames}(houseprices[4]))
+FORMULAS <- \hlfunctioncall{all_possible_models}(
+    x.column.names=\hlfunctioncall{colnames}(houseprices[1:3]),
+    y.col.name=\hlfunctioncall{colnames}(houseprices[4])
+    )
+FORMULAS[8] <- \hlstring{"sale.price ~ 1"} # add the null model
 CV.MSE <- \hlfunctioncall{lapply}(FORMULAS, apply_formula)
 final.results <- \hlfunctioncall{cbind}(FORMULAS, CV.MSE)
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -149,19 +151,20 @@ final.results
 \end{alltt}
 \begin{verbatim}
 ##      FORMULAS                            CV.MSE
-## [1,] "sale.price ~ floors"               43.2  
-## [2,] "sale.price ~ area"                 46.4  
-## [3,] "sale.price ~ bedrooms"             34.2  
-## [4,] "sale.price ~ floors+area"          47.7  
-## [5,] "sale.price ~ floors+bedrooms"      35.4  
-## [6,] "sale.price ~ area+bedrooms"        27.6  
-## [7,] "sale.price ~ floors+area+bedrooms" 28.1
+## [1,] "sale.price ~ floors"               4009  
+## [2,] "sale.price ~ area"                 3531  
+## [3,] "sale.price ~ bedrooms"             2103  
+## [4,] "sale.price ~ floors+area"          3689  
+## [5,] "sale.price ~ floors+bedrooms"      2139  
+## [6,] "sale.price ~ area+bedrooms"        1322  
+## [7,] "sale.price ~ floors+area+bedrooms" 1542  
+## [8,] "sale.price ~ 1"                    3692
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
 
 
-Comparing the cross-validated mean squared errors for each model, we can see that the best simple linear model is sale.price ~ floors+area+bedrooms.  A summary of this model is shown below:
+Comparing the cross-validated mean squared errors for each model, we can see that the best simple linear model is~, sale.price, area + bedrooms. A summary of this model is shown below:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -194,7 +197,7 @@ lm.optimatal <- \hlfunctioncall{lm}(sale.price ~ area + bedrooms, data = housepr
 
 \pagebreak
 \section{Checking Assumptions for Linear Regression}
-First we check for to see that we were correct in assuming that the relationship is linear. One test we can conduct is plotting our our observed values for sale price against our predicted values for sale price.  Here we see that the points seem fairly randomoly distributed around the line through the diagonal so we can accept the linearity assumption. Another test for linearity is plotting residuals versus our preidcted values.  Below, this plot, the one to the right, is really only a rotation of the plot on the left. It seems as though there is slightly more of a pattern than we might have been able to visually identify before.  This casts some doubt on our linearity assumption.
+First we check for to see that we were correct in assuming that the relationship we are modeling is actually linear. One test we can conduct is plotting our our observed values for sale price against our predicted values for sale price.  Here we see that the points seem fairly randomoly distributed around the line through the diagonal so we can accept the linearity assumption. Another test for linearity is plotting residuals versus our preidcted values.  Below, this plot, the one to the right, is really only a rotation of the plot on the left. It seems as though there is slightly more of a pattern than we might have been able to visually identify before.  This casts some doubt on our linearity assumption.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
@@ -221,7 +224,7 @@ An additional assumption that we need to check is homoscedasticity, the constant
 
 \end{knitrout}
 
-Finally, we test the assumption that residuals are noramlly distributed about the fitted regression line.  To analyze this relationship visually, we examine a "qqnorm" plot, which helps us compare the distribution of the scaled residuals to that of the standard normal distribution.  On the tails, there seems to be significant deviation from the normal distribution.
+Next, we test the assumption that residuals are noramlly distributed about the fitted regression line.  To analyze this relationship visually, we examine a "qqnorm" plot, which helps us compare the distribution of the scaled residuals to that of the standard normal distribution.  On the tails, there seems to be significant deviation from the normal distribution.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
@@ -232,6 +235,66 @@ Finally, we test the assumption that residuals are noramlly distributed about th
 
 
 \end{knitrout}
+
+
+Another assumption that we would want to check in fitting this model is that the predictors in are model are not correlated. This is important becase if we have multicolinearity, the variance of the fitted values increases. To check for multicolinearity, we calculate a variance inflation factor (vif) using a function from the HH package.  We get values that are less than 5 so conclude that in our model, the predictors' colinearity is acceptable.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{library}(HH)
+\hlfunctioncall{vif}(lm.optimatal)
+\end{alltt}
+\begin{verbatim}
+##     area bedrooms 
+##     1.06     1.06
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+A final check that we might want to do is for outliers and influential observations.  These are important to check for because if they do exist, it indicates that our model might not be representative of the true population relationship in that a single observation biases it significantly.  Using the Bonferroni Procedure, deleted or externally studentized residuals, we see that that the 5th observation is an outlier.  Conceptually speaking, we know this to be the case because our fitted values for each data point would be statistically signifianctly different if this observation were not included in the data.  The graph below also shows that two other observations have large hat-values, meaning they are are highly leveraged.  
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{outlierTest}(lm.optimatal)
+\end{alltt}
+\begin{verbatim}
+##   rstudent unadjusted p-value Bonferonni p
+## 5    -3.86            0.00268       0.0401
+\end{verbatim}
+\begin{alltt}
+\hlfunctioncall{influencePlot}(lm.optimatal, main=\hlstring{"Influence Plot"}, 
+              sub=\hlstring{"Circle size is proportial to Cook's Distance"} )
+\end{alltt}
+\end{kframe}
+
+{\centering \includegraphics[width=\maxwidth]{figure/minimal-outliers} 
+
+}
+
+
+
+\end{knitrout}
+
+
+A combinatination of having a large residual and being highly leveraged makes a point influential, which is indicated by Cook's Distance. An observation is considered influential if it has a Cook's Distance that is greater than 4/n, where n is the number of observations in the data set.  In this dataset, we see that the 5th observation is influential, which makes sense because it is the house that sold for 112,000 dollars, so is a highly leveraged point.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+cd <- \hlfunctioncall{cooks.distance}(lm.optimatal)
+\hlfunctioncall{subset}(cd, cd > 4/15)
+\end{alltt}
+\begin{verbatim}
+##     5 
+## 0.348
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Overall, seeing that we violate a few assumptions and are not assured of really satisfying some because of our small n, we should interpet this model with caution. Ideally to fit a more robust model, we would have more data points to more accurately understand the actual variablity of the data.
 
 
 \pagebreak
@@ -272,7 +335,7 @@ prediction_interval
 The prediction interval for the price of a single two-floor, 1000 square foot house with 4 bedrooms is (158, 310), centered around 234.
 
 \section{Comparison between Confidence and Prediction Intervals}
-The prediction internval is wider than the confidence interval for houses with the same predictor values because for a confidence interval, uncertainty comes only from the imperfection of the model that is fit to the data, but in the case of a prediction interval,there is  variability that is introduced by picking one single observation and not the average of all observations.
+The prediction internval is wider than the confidence interval for houses with the same values of the independent variables because for a confidence interval, uncertainty comes only from variability of the data to which the model is fit.  In the case of a prediction interval, there is additional variability associated with picking a single observation and not the average of all observations.
 
 \section{References}
 

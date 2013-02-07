@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  4 FEB 2013 22:20
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  6 FEB 2013 16:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -497,73 +497,84 @@ LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 101.
 Package color Info: Redefining color shadecolor on input line 121.
 Package color Info: Redefining color shadecolor on input line 134.
-Package color Info: Redefining color shadecolor on input line 146.
+Package color Info: Redefining color shadecolor on input line 148.
 
 [1
 
 {/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package color Info: Redefining color shadecolor on input line 166.
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 191
+Package color Info: Redefining color shadecolor on input line 169.
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 194
 .
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) [2]
-Package color Info: Redefining color shadecolor on input line 199.
+Package color Info: Redefining color shadecolor on input line 202.
 
 <figure/minimal-modelAssumptions1.pdf, id=43, 542.025pt x 289.08pt>
 File: figure/minimal-modelAssumptions1.pdf Graphic file (type pdf)
 
 <use figure/minimal-modelAssumptions1.pdf>
 Package pdftex.def Info: figure/minimal-modelAssumptions1.pdf used on input lin
-e 201.
+e 204.
 (pdftex.def)             Requested size: 472.03123pt x 251.75781pt.
  [3 <./figure/minimal-modelAssumptions1.pdf>]
-Package color Info: Redefining color shadecolor on input line 214.
- <figure/minimal-modelAssumptions3.pdf, id=54, 533.995pt x 289.08pt>
+Package color Info: Redefining color shadecolor on input line 217.
+ <figure/minimal-modelAssumptions3.pdf, id=54, 533.995pt x 271.0125pt>
 File: figure/minimal-modelAssumptions3.pdf Graphic file (type pdf)
 
 <use figure/minimal-modelAssumptions3.pdf>
 Package pdftex.def Info: figure/minimal-modelAssumptions3.pdf used on input lin
-e 216.
-(pdftex.def)             Requested size: 472.03123pt x 255.54686pt.
-Package color Info: Redefining color shadecolor on input line 226.
+e 219.
+(pdftex.def)             Requested size: 472.03123pt x 239.57518pt.
+Package color Info: Redefining color shadecolor on input line 229.
 
 <figure/minimal-modelAssumptions2.pdf, id=55, 216.81pt x 216.81pt>
 File: figure/minimal-modelAssumptions2.pdf Graphic file (type pdf)
 
 <use figure/minimal-modelAssumptions2.pdf>
 Package pdftex.def Info: figure/minimal-modelAssumptions2.pdf used on input lin
-e 228.
+e 231.
 (pdftex.def)             Requested size: 216.80946pt x 216.81938pt.
+Package color Info: Redefining color shadecolor on input line 243.
  [4 <./figure/minimal-modelAssumptions3.pdf> <./figure/minimal-modelAssumptions
 2.pdf>]
-Package color Info: Redefining color shadecolor on input line 240.
-Package color Info: Redefining color shadecolor on input line 258.
-LaTeX Font Info:    Try loading font information for TS1+pplx on input line 280
+Package color Info: Redefining color shadecolor on input line 260.
+
+<figure/minimal-outliers.pdf, id=71, 216.81pt x 216.81pt>
+File: figure/minimal-outliers.pdf Graphic file (type pdf)
+
+<use figure/minimal-outliers.pdf>
+Package pdftex.def Info: figure/minimal-outliers.pdf used on input line 274.
+(pdftex.def)             Requested size: 216.80946pt x 216.81938pt.
+Package color Info: Redefining color shadecolor on input line 285.
+ [5 <./figure/minimal-outliers.pdf>]
+Package color Info: Redefining color shadecolor on input line 303.
+Package color Info: Redefining color shadecolor on input line 321.
+LaTeX Font Info:    Try loading font information for TS1+pplx on input line 343
 .
 
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ts1pplx.fd
 File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 286.
- [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 286.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 349.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 349.
  (./hw2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 286.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 286.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 349.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 349.
 Package rerunfilecheck Info: File `hw2.out' has not changed.
 (rerunfilecheck)             Checksum: 3C91AAE3CCBDA4E8870F9B5C8CB91FED;1602.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 286.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 349.
  ) 
 Here is how much of TeX's memory you used:
- 7654 strings out of 493488
- 109691 string characters out of 3141326
- 191628 words of memory out of 3000000
- 10851 multiletter control sequences out of 15000+200000
+ 7660 strings out of 493488
+ 109844 string characters out of 3141326
+ 192628 words of memory out of 3000000
+ 10855 multiletter control sequences out of 15000+200000
  22502 words of font info for 59 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 31i,6n,35p,699b,371s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,6n,35p,746b,365s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }{/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/te
 xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
@@ -571,10 +582,10 @@ live/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texl
 ive/2012/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texliv
 e/2012/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2012/
 texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on hw2.pdf (5 pages, 108865 bytes).
+Output written on hw2.pdf (6 pages, 116424 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
- 64 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 115 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
+ 13 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 
