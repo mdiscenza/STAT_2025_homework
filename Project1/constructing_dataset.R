@@ -66,6 +66,7 @@ is.factor(study_data$religion)
 study_data$know_preg_peera <- as.factor(study_data$know_preg_peera)
 is.factor(study_data$know_preg_peera)
 #next one isn't working
+study_data$birth_control_used_by_peers <- study_data[,11]
 study_data$birth_control_used_by_peers <- as.factor(study_data$birth_control_used_by_peers)
 is.factor(study_data$birth_control_used_by_peers)
 study_data$fathers_education <- as.factor(study_data$fathers_education)
@@ -84,8 +85,6 @@ study_data$drinking_freq <- as.factor(study_data$drinking_freq)
 is.factor(study_data$drinking_freq)
 study_data$smoking_freq <- as.factor(study_data$smoking_freq)
 is.factor(study_data$smoking_freq)
-
-
-#We are for now going to code the age of first smoking, drinking, and drugs, and the frequency of smoking, drugs, and drinking per week as a factor.  The mothers and father's education will also be factors.  We will just replace the NAs with zeros in these cases
-#trivial change 2
+#replacing NAs with -1
+study_data[is.na(study_data)] <- -1
 
