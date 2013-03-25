@@ -1,4 +1,4 @@
-preg <- read.csv("~/code/data/dapm5m6/dapm5m6/dapm5m6.csv")
+preg <- read.csv("./dapm5m6.csv")
 
 #ever been or gotten somone pregnant
 
