@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  11 MAR 2013 20:32
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  6 MAR 2013 16:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**hw2.tex
-(./hw2.tex
+**hw5.tex
+(./hw5.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
 rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
@@ -335,8 +335,8 @@ Package breakurl Warning: You are using breakurl while processing via pdflatex.
 (breakurl)                \burl will be just a synonym of \url.
 (breakurl)                 on input line 47.
 
-) (./hw2.aux)
-\openout1 = `hw2.aux'.
+) (./hw5.aux)
+\openout1 = `hw5.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
 LaTeX Font Info:    ... okay on input line 72.
@@ -448,9 +448,9 @@ LaTeX Info: Redefining \ref on input line 72.
 LaTeX Info: Redefining \pageref on input line 72.
 LaTeX Info: Redefining \nameref on input line 72.
 
-(./hw2.out) (./hw2.out)
+(./hw5.out) (./hw5.out)
 \@outlinefile=\write3
-\openout3 = `hw2.out'.
+\openout3 = `hw5.out'.
 
 LaTeX Font Info:    Try loading font information for OML+zplm on input line 82.
 
@@ -476,113 +476,126 @@ LaTeX Font Info:    Try loading font information for OT1+zplm on input line 82.
 (/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ot1zplm.fd
 File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
 )
-LaTeX Font Info:    Font shape `OT1/pplx/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/pplx/b/n' tried instead on input line 86.
-Package color Info: Redefining color shadecolor on input line 89.
-LaTeX Font Info:    Try loading font information for TS1+pplx on input line 134
-.
-
-(/usr/local/texlive/2012/texmf-dist/tex/latex/psnfss/ts1pplx.fd
-File: ts1pplx.fd 2004/09/06 font definitions for TS1/pplx.
-)
-Package color Info: Redefining color shadecolor on input line 139.
+Package color Info: Redefining color shadecolor on input line 85.
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 141.
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 141
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 87.
+
+Overfull \hbox (26.71442pt too wide) in paragraph at lines 91--91
+[]\OT1/cmtt/m/n/10 fish <- []read.table[]([]url[]([]"http://www.stat.columbia.e
+du/~madigan/W2025/data/fish.csv"[]), sep = []","[],[] 
+ []
+
+
+Overfull \hbox (163.21323pt too wide) in paragraph at lines 96--96
+[][]\OT1/cmtt/m/n/10 plot[]([]density[]([]subset[](fish$count, (fish$count > 0 
+& fish$count < 100))), main = []"Response Varible []Density[] (with no zeros)"[
+])[] 
+ []
+
+<figure/minimal-start1.pdf, id=4, 361.35pt x 216.81pt>
+File: figure/minimal-start1.pdf Graphic file (type pdf)
+
+<use figure/minimal-start1.pdf>
+Package pdftex.def Info: figure/minimal-start1.pdf used on input line 100.
+(pdftex.def)             Requested size: 361.34912pt x 216.80946pt.
+
+<figure/minimal-start2.pdf, id=5, 361.35pt x 216.81pt>
+File: figure/minimal-start2.pdf Graphic file (type pdf)
+
+<use figure/minimal-start2.pdf>
+Package pdftex.def Info: figure/minimal-start2.pdf used on input line 101.
+(pdftex.def)             Requested size: 361.34912pt x 216.80946pt.
+ [1
+
+{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./figur
+e/minimal-start1.pdf>]
+Package color Info: Redefining color shadecolor on input line 112.
+Package color Info: Redefining color shadecolor on input line 152.
+ [2 <./figure/minimal-start2.pdf>]
+Package color Info: Redefining color shadecolor on input line 167.
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 199
 .
-
-(/Library/Frameworks/R.framework/Resources/share/texmf/tex/latex/omscmtt.fd
-File: omscmtt.fd 
-)
-LaTeX Font Info:    Font shape `OMS/cmtt/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 141.
-
-[1
-
-{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package color Info: Redefining color shadecolor on input line 161.
-Package color Info: Redefining color shadecolor on input line 174.
-Package color Info: Redefining color shadecolor on input line 188.
-Package color Info: Redefining color shadecolor on input line 209.
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 234
-.
-
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/ts1cmtt.fd
+ (/usr/local/texlive/2012/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [2] [3]
-Package color Info: Redefining color shadecolor on input line 242.
+)
+Overfull \hbox (10.96455pt too wide) in paragraph at lines 202--202
+[]\OT1/cmtt/m/n/10 CV.PredictionError[1] <- []cv.glm[](data = fish, glmfit = m1
+, K = k_fold, cost = costf)$delta[2][] 
+ []
 
-<figure/minimal-modelAssumptions1.pdf, id=49, 542.025pt x 289.08pt>
-File: figure/minimal-modelAssumptions1.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 217.
+[3]
+Overfull \hbox (21.46446pt too wide) in paragraph at lines 262--262
+[]\OT1/cmtt/m/n/10 CV.PredictionError[2] <- []cv.glm[](data = fish, glmfit = zi
+p1, K = k_fold, cost = costf)$delta[2][] 
+ []
 
-<use figure/minimal-modelAssumptions1.pdf>
-Package pdftex.def Info: figure/minimal-modelAssumptions1.pdf used on input lin
-e 244.
-(pdftex.def)             Requested size: 472.03123pt x 251.75781pt.
- [4 <./figure/minimal-modelAssumptions1.pdf>]
-Package color Info: Redefining color shadecolor on input line 257.
- <figure/minimal-modelAssumptions3.pdf, id=60, 533.995pt x 271.0125pt>
-File: figure/minimal-modelAssumptions3.pdf Graphic file (type pdf)
+Package color Info: Redefining color shadecolor on input line 274.
 
-<use figure/minimal-modelAssumptions3.pdf>
-Package pdftex.def Info: figure/minimal-modelAssumptions3.pdf used on input lin
-e 259.
-(pdftex.def)             Requested size: 472.03123pt x 239.57518pt.
-Package color Info: Redefining color shadecolor on input line 269.
+Overfull \hbox (21.46446pt too wide) in paragraph at lines 309--309
+[]\OT1/cmtt/m/n/10 CV.PredictionError[3] <- []cv.glm[](data = fish, glmfit = H1
+.P, K = k_fold, cost = costf)$delta[2][] 
+ []
 
-<figure/minimal-modelAssumptions2.pdf, id=61, 216.81pt x 216.81pt>
-File: figure/minimal-modelAssumptions2.pdf Graphic file (type pdf)
+[4]
+Package color Info: Redefining color shadecolor on input line 322.
 
-<use figure/minimal-modelAssumptions2.pdf>
-Package pdftex.def Info: figure/minimal-modelAssumptions2.pdf used on input lin
-e 271.
-(pdftex.def)             Requested size: 216.80946pt x 216.81938pt.
-Package color Info: Redefining color shadecolor on input line 283.
- [5 <./figure/minimal-modelAssumptions3.pdf> <./figure/minimal-modelAssumptions
-2.pdf>]
-Package color Info: Redefining color shadecolor on input line 300.
+Overfull \hbox (16.21451pt too wide) in paragraph at lines 325--325
+[]\OT1/cmtt/m/n/10 m2 <- []glm.nb[](fish$count ~ fish$child + fish$camper + fis
+h$persons, data = fish, link = []"log"[])[] 
+ []
 
-<figure/minimal-outliers.pdf, id=77, 216.81pt x 216.81pt>
-File: figure/minimal-outliers.pdf Graphic file (type pdf)
 
-<use figure/minimal-outliers.pdf>
-Package pdftex.def Info: figure/minimal-outliers.pdf used on input line 314.
-(pdftex.def)             Requested size: 216.80946pt x 216.81938pt.
-Package color Info: Redefining color shadecolor on input line 325.
- [6 <./figure/minimal-outliers.pdf>]
-Package color Info: Redefining color shadecolor on input line 343.
-Package color Info: Redefining color shadecolor on input line 361.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 389.
- [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 389.
+Overfull \hbox (10.96455pt too wide) in paragraph at lines 363--363
+[]\OT1/cmtt/m/n/10 CV.PredictionError[4] <- []cv.glm[](data = fish, glmfit = m1
+, K = k_fold, cost = costf)$delta[2][] 
+ []
 
-(./hw2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 389.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 389.
-Package rerunfilecheck Info: File `hw2.out' has not changed.
-(rerunfilecheck)             Checksum: 3C91AAE3CCBDA4E8870F9B5C8CB91FED;1602.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 389.
+[5]
+Package color Info: Redefining color shadecolor on input line 377.
+
+Overfull \hbox (21.46446pt too wide) in paragraph at lines 416--416
+[]\OT1/cmtt/m/n/10 CV.PredictionError[5] <- []cv.glm[](data = fish, glmfit = zi
+p2, K = k_fold, cost = costf)$delta[2][] 
+ []
+
+[6]
+Package color Info: Redefining color shadecolor on input line 428.
+
+Overfull \hbox (26.71442pt too wide) in paragraph at lines 471--471
+[]\OT1/cmtt/m/n/10 CV.PredictionError[6] <- []cv.glm[](data = fish, glmfit = H1
+.NB, K = k_fold, cost = costf)$delta[2][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 482.
+[7]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 495.
+ [8]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 495.
+ (./hw5.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 495.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 495.
+Package rerunfilecheck Info: File `hw5.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 495.
  ) 
 Here is how much of TeX's memory you used:
- 7663 strings out of 493488
- 109873 string characters out of 3141326
- 198628 words of memory out of 3000000
- 10856 multiletter control sequences out of 15000+200000
- 22670 words of font info for 60 fonts, out of 3000000 for 9000
+ 7578 strings out of 493488
+ 108282 string characters out of 3141326
+ 199628 words of memory out of 3000000
+ 10790 multiletter control sequences out of 15000+200000
+ 13977 words of font info for 39 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 31i,6n,35p,746b,373s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,6n,35p,588b,368s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 }{/usr/local/texlive/2012/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/te
-xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/te
-xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
-live/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texl
-ive/2012/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texliv
-e/2012/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/2012/
-texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on hw2.pdf (7 pages, 127969 bytes).
+xlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/tex
+live/2012/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texli
+ve/2012/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
+Output written on hw5.pdf (8 pages, 85471 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
- 14 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 73 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

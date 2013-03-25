@@ -1,0 +1,128 @@
+%% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\usepackage{breakurl}
+\begin{document}
+
+<<setup, include=FALSE, cache=FALSE>>=
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold', message=FALSE)
+options(replace.assign=TRUE,width=90)
+@
+
+
+\title{Stat 2025- HW 7}
+\author{Michael Discenza}
+
+\maketitle
+
+We know that we have a binary response variable, "chd," where 0 represents the absence and 1 the presence of coronary heart disease. Because the goal of this exercise is predicting the score of the 42 rows, we will try to minimize cv prediction error.
+
+First we load the data and split it into training and test sets.
+<<start,message=FALSE, fig.width=5, fig.height=3>>=
+SAH <- read.table("http://stat.columbia.edu/~madigan/W2025/data/SAHmissing.txt",header=TRUE,sep="\t")
+SAH.training <- na.exclude(SAH)
+SAH.test <- SAH[421:462,]
+@
+
+Here we are not so focused on creating "predictive"good" models with low BICs or AICs, we are more focused on predictive power.  We don't have to be so concerned with making small models that are as well vetted as long as they predict well.  Nonetheless, we start by fitting a ful model and seeing which variables are statistically significant, or nearly so, and which variables are not particularly informative.  We drop the non particularly informative variables (alcohol and adiposity) and use the rest in the the modeling processes.
+<<variable_selection>>=
+m1 <- glm(chd~.,data=SAH.training)
+summary(m1)
+@
+
+For the rest of the process, we will fit a number of different models with different tupes of smoothing and on different variables then compare the AIC and cross validation mean squared error.  Then we will choose the optimatmal model and predict the the binary response for the 42 observations in the test data.
+
+<<packages,echo=FALSE>>=
+attach(SAH)
+library(mgcv)
+library(AED)
+library(mgcv)
+library(boot)
+@
+
+<<modelfitting,echo=TRUE,eval=FALSE>>=
+attach(SAH)
+library(mgcv)
+library(AED)
+library(mgcv)
+library(boot)
+
+costf <- function(r, pi = 0) mean((r - round(pi))^2) # need to define a cost function that rounds the binary response to either 1 or zero 
+results1 = c("Regular Logistic Regression", AIC(m1), cv.glm(data=SAH.training,glmfit=m1,cost=costf,K=10)$delta[2])
+
+#model with all predictors and all smoothed cr
+m2 <- gam(chd~s(sbp,bs="cr")+s(tobacco,bs="cr")+s(ldl,bs="cr")+s(adiposity,bs="cr")+s(typea,bs="cr")+s(obesity,bs="cr")+famhist+s(alcohol,bs="cr")+s(age,bs="cr"),data=SAH.training,family=binomial)
+results2 = c("All predictors, cr smooth", AIC(m2), cv.glm(data=SAH.training,glmfit=m2,cost=costf,K=10)$delta[2])
+
+#model with only significant predictors from full logistic model cr
+m3 <- gam(chd~s(sbp,bs="cr")+s(tobacco,bs="cr")+s(ldl,bs="cr")+s(typea,bs="cr")+s(obesity,bs="cr")+famhist+s(age,bs="cr"),data=SAH.training,family=binomial)
+results3 = c("Only significant predictors, cr smooth", AIC(m3), cv.glm(data=SAH.training,glmfit=m3,cost=costf,K=10)$delta[2])
+
+#model with all predictors cs
+m4 <- gam(chd~s(sbp,bs="cs")+s(tobacco,bs="cs")+s(ldl,bs="cs")+s(adiposity,bs="cs")+s(typea,bs="cs")+s(obesity,bs="cs")+famhist+s(alcohol,bs="cs")+s(age,bs="cs"),data=SAH.training,family=binomial)
+results4 = c("All predictors, cs smooth", AIC(m4), cv.glm(data=SAH.training,glmfit=m4,cost=costf,K=10)$delta[2])
+
+#looking at the GAM check for the first model, se wee that a lot of smoothers could potentially be dropped because the relationship between the predictors and the dependent variable are pretty linear
+m5 <- gam(chd~sbp+s(tobacco,bs="cs") + ldl + typea + obesity + famhist + age,data=SAH.training,family=binomial)
+results5 = c("Only significant predictors, cs smooth", AIC(m5), cv.glm(data=SAH.training,glmfit=m5,cost=costf,K=10)$delta[2])
+
+results <- rbind(results1,results2,results3,results4, results5)
+colnames(results) <- c("Model", "AIC", "CV.MSE (k=10)")
+results
+# with cs and not cr
+
+@
+After fitting a number of models, we compare their cross validated mean squared errror and AIC.
+
+
+% latex table generated in R 2.15.1 by xtable 1.7-0 package
+% Fri Mar 15 16:02:53 2013
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{rlll}
+  \hline
+ & Model & AIC & CV.MSE (k=10) \\ 
+  \hline
+ Regular Logistic Regression & 476.33735549369 & 0.268095238095238 \\ 
+    All predictors, cr smooth & 442.281672512403 & 0.261428571428571 \\ 
+    Only significant predictors, cr smooth & 437.611549623085 & 0.28452380952381 \\ 
+    All predictors, cs smooth & 438.502335034372 & 0.28952380952381 \\ 
+    Only significant predictors, cs smooth & 439.3932621128 & 0.284761904761905 \\ 
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+For the final model that we will use to make predictions, we choose, the second model, which includes all predictors smoothed with cubic regression splines.  Before making the predictions we, examine the model and see that assumptions are met.
+
+<<evaluatingm2, echo=FALSE>>=
+m2 <- gam(chd~s(sbp,bs="cr")+s(tobacco,bs="cr")+s(ldl,bs="cr")+s(adiposity,bs="cr")+s(typea,bs="cr")+s(obesity,bs="cr")+famhist+s(alcohol,bs="cr")+s(age,bs="cr"),data=SAH.training,family=binomial)
+@
+
+<<assumptionchecking, echo=FALSE, warning=FALSE>>=
+gam.check(m2)
+par(mfrow=c(3,2))
+plot(m2)
+@
+Looking at the residual, plot, we see that it is a little funky.  The qq norm plot indicates that there are a few issues with residuls being normally distributed, but since the m2 model still provides the best CV MSE, we will use it.
+
+Our last step is to apply the model to the test data and round the results to 1 or zero:
+
+<<predict>>=
+fitted_test_values <- predict.gam(object=m2,newdata=SAH.test,se=TRUE, type="response")
+round(fitted_test_values$fit[1:42])
+@
+\end{document}

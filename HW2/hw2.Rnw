@@ -16,7 +16,7 @@
 \usepackage{breakurl}
 \begin{document}
 
-<<setup, include=FALSE, cache=FALSE>>=
+<<setup, include=FALSE, cache=FALSE, message=FALSE>>=
 # set global chunk options
 opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
 options(replace.assign=TRUE,width=90)
@@ -28,14 +28,22 @@ options(replace.assign=TRUE,width=90)
 
 \maketitle
 
+
+
+
 \section{Best-subset Model Selection using Cross-validation}
 I first load the library that will help with the cross-validation and then I import houseprice dataset into R
-<<start,message=FALSE>>=
+<<start,echo=FALSE,message=TRUE, warning=FALSE>>=
 library(DAAG)
 houseprices <- read.delim("http://www.stat.columbia.edu/~madigan/W2025/data/houseprices.txt")
 @
 
-Next, I define two helper functions. The first, which is based on the source from Hadley Wickham's Meify Package (see \url{https://github.com/hadley/meifly/blob/master/R/generate.r}) returns all possible simple linear models that can be made from the set of predictors:
+Next, I define two helper functions.  The helper function were \texttt{helper1} and helper2 The first, which is based on the source from Hadley Wickham's Meify Package (see \url{https://github.com/hadley/meifly/blob/master/R/generate.r}) returns all possible simple linear models that can be made from the set of predictors:
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
 
 
 <<ball_possible_models, tidy=FALSE>>=

@@ -80,19 +80,59 @@
 
 \maketitle
 
+
+
+
 \section{Best-subset Model Selection using Cross-validation}
 I first load the library that will help with the cross-validation and then I import houseprice dataset into R
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{library}(DAAG)
-houseprices <- \hlfunctioncall{read.delim}(\hlstring{"http://www.stat.columbia.edu/~madigan/W2025/data/houseprices.txt"})
-\end{alltt}
-\end{kframe}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: MASS}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: lattice}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: latticeExtra}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: RColorBrewer}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: rpart}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: randomForest}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# randomForest 4.6-7}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Type rfNews() to see new features/changes/bug fixes.}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: boot}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'boot'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object(s) are masked from 'package:lattice':\\\#\# \\\#\#\ \ \ \  melanoma}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: survival}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: splines}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'survival'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object(s) are masked from 'package:boot':\\\#\# \\\#\#\ \ \ \  aml}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'DAAG'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object(s) are masked from 'package:survival':\\\#\# \\\#\#\ \ \ \  lung}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object(s) are masked from 'package:MASS':\\\#\# \\\#\#\ \ \ \  hills}}\end{kframe}
 \end{knitrout}
 
 
-Next, I define two helper functions. The first, which is based on the source from Hadley Wickham's Meify Package (see \url{https://github.com/hadley/meifly/blob/master/R/generate.r}) returns all possible simple linear models that can be made from the set of predictors:
+Next, I define two helper functions.  The helper function were \texttt{helper1} and helper2 The first, which is based on the source from Hadley Wickham's Meify Package (see \url{https://github.com/hadley/meifly/blob/master/R/generate.r}) returns all possible simple linear models that can be made from the set of predictors:
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
 
 
 \begin{knitrout}

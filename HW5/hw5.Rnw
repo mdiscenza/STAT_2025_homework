@@ -1,0 +1,142 @@
+%% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\usepackage{breakurl}
+\begin{document}
+
+<<setup, include=FALSE, cache=FALSE>>=
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold', message=FALSE)
+options(replace.assign=TRUE,width=90)
+@
+
+
+\title{Stat 2025- HW 4}
+\author{Michael Discenza}
+
+\maketitle
+
+To start out, we plot the distribution of the response variable, count.  We also note that as a count, it takes only integers values.  This provides us with the insight that we might be best served by using poisson regression or negative binomial regression.
+<<start,message=FALSE, fig.width=5, fig.height=3>>=
+library(boot)
+library(pscl)
+library(VGAM)
+library(MASS)
+fish <- read.table(url("http://www.stat.columbia.edu/~madigan/W2025/data/fish.csv"), sep=",", header = TRUE) 
+fish <- as.data.frame(cbind(fish$count, fish$child, fish$camper, fish$persons))
+colnames(fish) <- c( "count", "child", "camper", "persons")
+plot(density(fish$count),main="Response Varible Density")
+plot(density(subset(fish$count, (fish$count >0 & fish$count<100))), main="Response Varible Density (with no zeros)")
+@
+In the first desnity plot, we see that the majority of responses are around 0.  We can again plot the data, this time subsetting it so that we do not plot zeros or values that are greater than 100.  In that second plot, we see that the values are again highly concentrated around between 1 and 10.  Before proceeding, we should also check for the presence of two common problems in the data that we might encounter when fitting a Poisson Regression model- overdispersion and zero inflation, the latter of which seems a first glance to be an issue.
+
+<<zeroinflation>>=
+length(subset(fish$count, fish$count==0))
+mean(fish$count)
+sqrt(var(fish$count))
+fish_no_zero <- subset(fish$count, fish$count!=0)
+mean(fish_no_zero)
+var(fish_no_zero)
+@
+We see that we have a problem with both overdispersion and zero inflation.  Looking at the mean and variance for the distribution without zeros, we see that there is still a problem with overdispersion and that we should fit zero-inflated and zero-altered models, to either Poisson Model, where we correct the standard errors using a quasi-GLM model, or a negative binomial model.  
+
+Before fitting the models, we make a structure that will allow us to track the performance of each of the models and define paramenters that we will use for cross validation of the models.  It is important to note that we had to redfine the cost function of the CV function to round the fitted values to the nearest whole number because it does not make sense to have non-integer fitted values for counts.
+
+<<listcreation>>=
+model <- rep(NA, 6)
+AIC <- rep(NA, 6)
+CV.PredictionError <- rep(NA, 6)
+k_fold =50
+costf=function(r, pi = 0) mean((r-round(pi))^2)
+costfb=function(r, pi = 0) mean((r-pi)^2)
+@
+
+The non-zero-altered version of the quasi-Poisson.  Note for this model, we cannot calculate an AIC value
+<<unalterederdqpoisson>>=
+model[1] <- "Unaltered Poisson"
+m1 <- glm(count~ child + camper + persons, data=fish, family="quasipoisson")
+summary(m1)
+#leave-one-out cross validation error
+CV.PredictionError[1] <- cv.glm(data=fish,glmfit=m1,K=k_fold,cost=costf)$delta[2]
+CV.PredictionError[1]
+@
+
+Above, we see that the disperssion paramerter is almost 12, much higher than 1, making it unaccepatble to fit using a normal poisson model.  We alo see that all of the three predictors included in the model, so to simplify our analysis going forward, we continue to fit the full model of the three predictors for each different specification of the GLM.
+
+Next we fit a zero-inflated Poisson, ZIP. Though we are unable to fit a quasi-poisson model and adjust for the overdispersion, we could easily adjust our variance of the fitted parameters afterward with the dispersion parameter, but since we are not doing inference with the parameters or fitting confidence intervals in this exercise, that is not necessary.
+
+<<zippoisson>, message=FALSE>>=
+model[2] <- "Zero-inflated Poisson"
+f1 <- formula(count ~  child + camper + persons | child + camper + persons)
+zip1 <- zeroinfl(f1, dist="poisson", link="logit", data=fish)
+summary(zip1)
+AIC[2] <- AIC(zip1)
+AIC[2]
+#Leave one out cv error
+cost <- function(r, pi = 0) mean(abs(r-pi) > 0.5)
+CV.PredictionError[2] <- cv.glm(data=fish,glmfit=zip1,K=k_fold,cost=costf)$delta[2]
+CV.PredictionError[2]
+@
+
+This model uses the hurdle function and fits a zero-adjusted poisson model instead of zeroinf.  
+<<zapoisson>>=
+model[3] <- "Zero-adjusted Poisson"
+H1.P <- hurdle(f1, dist="poisson", link="logit", data=fish)
+summary(H1.P)
+AIC[3] <- AIC(H1.P)
+CV.PredictionError[3] <- cv.glm(data=fish,glmfit=H1.P,K=k_fold,cost=costf)$delta[2]
+CV.PredictionError[3]
+@
+
+
+The next set of models that we fit are negative binomial models instead of poisson, which might serve us better, paritcuarly when using the zeroinf and hurdle functins to fit the mixed models because we are not able to compensate in our variances of fitted parameters for the overdispersion of the response variable without manually scalling the standard deviations.
+<<unalterederdnb>>=
+model[4] <- "Unaltered Negative Binomial"
+m2 <- glm.nb(fish$count ~ fish$child + fish$camper + fish$persons, data=fish, link='log')
+summary(m2)
+AIC[4] <- AIC(m2)
+CV.PredictionError[4] <- cv.glm(data=fish,glmfit=m1,K=k_fold,cost=costf)$delta[2]
+CV.PredictionError[4]
+@
+
+
+
+Here is a zero-inflated negative binomial (ZINB),
+<<alterederdNB>>=
+model[5] <- "Zero-inflated negative binomial"
+f2 <- formula(count ~  child + camper + persons | child + camper + persons)
+zip2 <- zeroinfl(f2, dist="negbin", link="logit", data=fish)
+summary(zip2)
+AIC[5] <- AIC(zip2)
+CV.PredictionError[5] <-cv.glm(data=fish,glmfit=zip2,K=k_fold,cost=costf)$delta[2]
+CV.PredictionError[5]
+@
+
+Here is a zero-altered negative binomial with the hurdle function
+<<hurdlenow2>>=
+model[6] <- "Zero-altered negative binomial"
+H1.NB <- hurdle(f1, dist="negbin", link="logit", data=fish)
+summary(H1.NB)
+AIC[6] <-  AIC(H1.NB)
+AIC[6]
+CV.PredictionError[6] <- cv.glm(data=fish,glmfit=H1.NB,K=k_fold,cost=costf)$delta[2]
+CV.PredictionError[6]
+@
+Comparing all of the models, we see that each provides pretty similar CV prediction error but there is a major diffference in the AIC of the Poisson models and the negative binomial models.  I am not sure why this is the case or if it is meaningful, but I would say that the optimal model to pick is the zero-inflated binomial model because it has one of the lower CV prediction errors and also allows us to do inference on the fitted model parameters taken directly form the model summary (unlike the poisson models that need to be adjusted for overdispersion)
+<<finalresults, echo=FALSE>>=
+results <- cbind(model, AIC, CV.PredictionError)
+results
+@
+\end{document}
