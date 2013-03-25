@@ -87,5 +87,5 @@ is.factor(study_data$smoking_freq)
 
 
 #We are for now going to code the age of first smoking, drinking, and drugs, and the frequency of smoking, drugs, and drinking per week as a factor.  The mothers and father's education will also be factors.  We will just replace the NAs with zeros in these cases
-
+#trivial change
 
