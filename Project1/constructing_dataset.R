@@ -17,22 +17,21 @@ colnames(study_data) <- c("sex_wo_contraception","know_about_pill", "know_about_
 
 
 #exploring the distribution of some of the variables
-cbind(study_data$know_about_pill, study_data$know_about_pill_b)
-table(study_data$know_about_pill)
-table(study_data$know_about_pill_b)
-cbind(study_data$know_about_condoms, study_data$know_about_condoms_b)
-table(study_data$know_about_condoms)
-table(study_data$know_about_condoms_b)
-cbind(study_data$know_about_diaphram, study_data$know_about_diaphram_b)
-table(study_data$know_about_diaphram)
-table(study_data$know_about_diaphram_b)
+# cbind(study_data$know_about_pill, study_data$know_about_pill_b)
+# table(study_data$know_about_pill)
+# table(study_data$know_about_pill_b)
+# cbind(study_data$know_about_condoms, study_data$know_about_condoms_b)
+# table(study_data$know_about_condoms)
+# table(study_data$know_about_condoms_b)
+# cbind(study_data$know_about_diaphram, study_data$know_about_diaphram_b)
+# table(study_data$know_about_diaphram)
+# table(study_data$know_about_diaphram_b)
+# 
+# cbind(study_data$know_preg_peera, study_data$know_preg_peerb)
+# table(study_data$know_preg_peera)
+# table(study_data$know_preg_peerb)
 
-cbind(study_data$know_preg_peera, study_data$know_preg_peerb)
-table(study_data$know_preg_peera)
-table(study_data$know_preg_peerb)
 
-#chaning the -9s to NAs
-is.na(study_data[ , unlist(lapply(study_data, is.numeric))] ) <- study_data[ , unlist(lapply(study_data, is.numeric))] == -9
 
 # removing the features with lots of NAs because they were not all collected by each survey instrument.
 study_data$know_about_pill_b <- NULL
