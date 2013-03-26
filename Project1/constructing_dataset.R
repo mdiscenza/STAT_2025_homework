@@ -1,8 +1,6 @@
 preg <- read.csv("./dapm5m6.csv")
 
 #ever been or gotten somone pregnant
-
-
 table(fem_preg$GRSM5003)
 #subsetting for only female who have sex
 fem_preg <- subset(preg, preg$GRSM5003==1)
@@ -69,6 +67,7 @@ is.factor(study_data$know_preg_peera)
 study_data$birth_control_used_by_peers <- study_data[,11]
 study_data$birth_control_used_by_peers <- as.factor(study_data$birth_control_used_by_peers)
 is.factor(study_data$birth_control_used_by_peers)
+study_data[11]<-NULL
 study_data$fathers_education <- as.factor(study_data$fathers_education)
 is.factor(study_data$fathers_education)
 study_data$mothers_education <- as.factor(study_data$mothers_education)
@@ -88,3 +87,18 @@ is.factor(study_data$smoking_freq)
 #replacing NAs with -1
 study_data[is.na(study_data)] <- -1
 
+
+#change the response variable to 0, 1
+# we want sex without contraception to be 1, with contraception to be 0
+# right now sex wihtout contraception is 1
+convert_response <- function(response){
+  if(response==2){
+    return(0)
+  }
+  if(response==1){
+    return(1)
+  }
+}
+study_data$sex_w_contraception <- as.numeric(as.character(study_data$sex_w_contraception))
+study_data$sex_w_contraception <- sapply(study_data$sex_w_contraception, FUN=convert_response)
+study_data$sex_w_contraception
