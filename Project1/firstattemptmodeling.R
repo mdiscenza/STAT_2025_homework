@@ -12,7 +12,13 @@ plot(lr1)
 #Lasso (Analysis 2)
 library(glmnet)
 #creating matricies
-x<-as.matrix(study_data[,2:20])
+x<-as.matrix(study_data[,2:10])
 y<-as.matrix(study_data[,1])
 #running 
 cv.res<-cv.glmnet(x,y,family="binomial")
+str(x)
+x_new <- as.factor(x)
+
+table(study_data$smoking_freq)
+
+model.matrix
