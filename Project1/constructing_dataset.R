@@ -1,3 +1,5 @@
+# Setting Mike's working directory
+setwd("~/Dropbox/_Spring_2013/STAT_2025/Homework/Project1")
 preg <- read.csv("./dapm5m6.csv")
 
 #ever been or gotten somone pregnant
@@ -44,18 +46,15 @@ study_data$know_preg_peerb <- NULL
 study_data$friends_use_contraception_a <- NULL
 study_data$friends_use_contraception_b <- NULL
 study_data$dont_participate_in_school_activites_2 <- NULL
+#also we decided to take out the the "know about" variables because tg
+study_data$know_about_pill <- NULL
+study_data$know_about_condoms <- NULL
+study_data$know_about_diaphram <- NULL
+study_data$know_about_withdrawl <- NULL
 
 #coding variables as either numeric or a factor:
-study_data$sex_w_contraception <- as.factor(study_data$sex_w_contraception)
-is.factor(study_data$sex_w_contraception)
-study_data$know_about_condoms <- as.factor(study_data$know_about_condoms)
-is.factor(study_data$know_about_condoms)
-study_data$know_about_withdrawl <- as.factor(study_data$know_about_withdrawl)
-is.factor(study_data$know_about_withdrawl)
-study_data$know_about_pill <- as.factor(study_data$know_about_pill)
-is.factor(study_data$know_about_pill)
-study_data$know_about_diaphram <- as.factor(study_data$know_about_diaphram)
-is.factor(study_data$know_about_diaphram)
+study_data$sex_wo_contraception <- as.factor(study_data$sex_wo_contraception)
+is.factor(study_data$sex_wo_contraception)
 study_data$ethnicity <- as.factor(study_data$ethnicity)
 is.factor(study_data$ethnicity)
 study_data$religion<- as.factor(study_data$religion)
@@ -98,6 +97,11 @@ convert_response <- function(response){
     return(1)
   }
 }
-study_data$sex_w_contraception <- as.numeric(as.character(study_data$sex_w_contraception))
-study_data$sex_w_contraception <- sapply(study_data$sex_w_contraception, FUN=convert_response)
-study_data$sex_w_contraception
+study_data$sex_wo_contraception <- as.numeric(as.character(study_data$sex_wo_contraception))
+study_data$sex_wo_contraception <- sapply(study_data$sex_wo_contraception, FUN=convert_response)
+#study_data$sex_wo_contraception
+
+
+#we also have to code age in the right way:
+study_data$age <- 84-study_data$age
+typeof(study_data$age)
