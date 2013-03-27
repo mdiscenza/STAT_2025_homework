@@ -12,11 +12,12 @@ fem_preg_sex$SXBM5124
 
 
 #adding variables that we want to a new data frame
-study_data <-  as.data.frame(cbind(fem_preg_sex$CNBM5130,fem_preg_sex$CNCM5152, fem_preg_sex$CNCM5153, fem_preg_sex$CNCM5154, fem_preg_sex$CNCM5155, fem_preg_sex$CNCM5597, fem_preg_sex$CNCM5598,fem_preg_sex$CNCM5599,fem_preg_sex$CNCM5600,fem_preg_sex$AGHM5393, fem_preg_sex$RASM5004, fem_preg_sex$RLSM5005,fem_preg_sex$EDSM5017, fem_preg_sex$EDSM5410,fem_preg_sex$CBHM5875, fem_preg_sex$CBSM5105, fem_preg_sex$CBSM5535, fem_preg_sex$CNAM5171, fem_preg_sex$CNBM5429, fem_preg_sex$CNBM5571,fem_preg_sex$EDSM5008, fem_preg_sex$EDSM5010, fem_preg_sex$EDIM5013,fem_preg_sex$RCBM5018, fem_preg_sex$RCBM5412, fem_preg_sex$SABM5421, fem_preg_sex$SABM5423, fem_preg_sex$SABM5424, fem_preg_sex$SAIM5046, fem_preg_sex$SAIM5490))
+study_data <-  as.data.frame(cbind(fem_preg_sex$CNBM5130,fem_preg_sex$CNCM5152, fem_preg_sex$CNCM5153, fem_preg_sex$CNCM5154, fem_preg_sex$CNCM5155, fem_preg_sex$CNCM5597, fem_preg_sex$CNCM5598,fem_preg_sex$CNCM5599,fem_preg_sex$CNCM5600,fem_preg_sex$AGHM5393, fem_preg_sex$RASM5004, fem_preg_sex$RLSM5005,fem_preg_sex$EDSM5017, fem_preg_sex$EDSM5410,fem_preg_sex$CBHM5875, fem_preg_sex$CBSM5105, fem_preg_sex$CBSM5535, fem_preg_sex$CNAM5171, fem_preg_sex$CNBM5429, fem_preg_sex$CNBM5571,fem_preg_sex$EDSM5008, fem_preg_sex$EDSM5010, fem_preg_sex$EDIM5013,fem_preg_sex$RCBM5018, fem_preg_sex$RCBM5412, fem_preg_sex$SABM5421, fem_preg_sex$SABM5423, fem_preg_sex$SABM5424, fem_preg_sex$SAIM5046))
 
-colnames(study_data) <- c("sex_wo_contraception","know_about_pill", "know_about_condoms", "know_about_diaphram","know_about_withdrawl", "know_about_pill_b", "know_about_condoms_b", "know_about_diaphram_b","know_about_withdrawl_b", "age", "ethnicity", "religion", "highest_yr_school_completed", "school_enrollment", "scare_atleast1_prega","know_preg_peera", "know_preg_peerb", " birth_control_used_by_peers", "friends_use_contraception_a", "friends_use_contraception_b", "fathers_education", "mothers_education", "educational_aspiration", "dont_participate_in_school_activites_1", "dont_participate_in_school_activites_2", "smoking_freq", "drinking_freq", "drug_freq", "age_frist_drinking_a", "age_frist_drinking_b")
+colnames(study_data) <- c("sex_wo_contraception","know_about_pill", "know_about_condoms", "know_about_diaphram","know_about_withdrawl", "know_about_pill_b", "know_about_condoms_b", "know_about_diaphram_b","know_about_withdrawl_b", "age", "ethnicity", "religion", "highest_yr_school_completed", "school_enrollment", "scare_atleast1_prega","know_preg_peera", "know_preg_peerb", "birth_control_used_by_peers", "friends_use_contraception_a", "friends_use_contraception_b", "fathers_education", "mothers_education", "educational_aspiration", "dont_participate_in_school_activites_1", "dont_participate_in_school_activites_2", "smoking_freq", "drinking_freq", "drug_freq", "age_frist_drinking")
 
-
+table(study_data$age_frist_drinking_a)
+table(study_data$age_frist_drinking_b)
 
 #exploring the distribution of some of the variables
 # cbind(study_data$know_about_pill, study_data$know_about_pill_b)
@@ -46,11 +47,6 @@ study_data$know_preg_peerb <- NULL
 study_data$friends_use_contraception_a <- NULL
 study_data$friends_use_contraception_b <- NULL
 study_data$dont_participate_in_school_activites_2 <- NULL
-#also we decided to take out the the "know about" variables because tg
-study_data$know_about_pill <- NULL
-study_data$know_about_condoms <- NULL
-study_data$know_about_diaphram <- NULL
-study_data$know_about_withdrawl <- NULL
 
 #coding variables as either numeric or a factor:
 study_data$sex_wo_contraception <- as.factor(study_data$sex_wo_contraception)
@@ -84,6 +80,11 @@ study_data$smoking_freq <- as.factor(study_data$smoking_freq)
 is.factor(study_data$smoking_freq)
 
 
+#also we decided to take out the the "know about" variables because tg
+study_data$know_about_pill <- NULL
+study_data$know_about_condoms <- NULL
+study_data$know_about_diaphram <- NULL
+study_data$know_about_withdrawl <- NULL
 
 
 #change the response variable to 0, 1

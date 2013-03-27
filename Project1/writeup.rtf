@@ -1,0 +1,89 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187
+\cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Cambria;\f1\fswiss\fcharset0 ArialMT;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red59\green58\blue98;\red189\green194\blue223;
+}
+\margl1440\margr1440\vieww22860\viewh12940\viewkind0
+\deftab720
+\pard\pardeftab720\ri720
+
+\f0\fs24 \cf0 Andrew Pinelli, Michael Discenza, & Haylin Belay\
+Statistics W2025\
+Project\
+\
+\pard\pardeftab720
+
+\f1\fs26 \cf2 Preliminary Analysis Write-up:\
+\
+\
+\pard\pardeftab720\fi960
+\cf2 The purpose of our analysis is to identify predictors that can be used to design a public service campaign. Thus, our analysis is focused on parametric models. In these models, we can look at the significance and size of the various predictors. In light of this, we did not run a generalized additive model, as it is semi-parametric in nature. Additionally, we chose not to run a tree or a random forest model, as these models are non-parametric. While these models are useful for predictive purses, they are not useful in helping us ascertain the underlying dynamics of contraception use in young females.\
+\pard\pardeftab720
+\cf2 \'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 Our dependent variable is binary. Therefore, in the context of parametric models a logistic regression is the best choice.\'a0 We show a full model using logistic regression.\'a0 A potential analysis would be running all possible models of the predictors and comparing them by a measure such as cross validation or AIC. As this is a total of 65,536 (2
+\fs22 \super 16
+\fs26 \nosupersub ) models, before considering interactions or transformations, this option is not feasible. We thus selected to use a lasso regression for our analysis.\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 Lasso is a shrinkage and selection method for linear regression that minimizes the sum of squared errors subject to bound on the absolute values of the coefficients. This method allows for a variable to be partly included in the model. We chose Lasso over a Ridge regression as the values of coefficients are driven to zero more quickly in Lasso, building the model selection process into the analysis.\
+\pard\pardeftab720\ri720
+
+\f0\fs24 \cf0 \
+\
+
+\b \ul Introduction and Purpose
+\b0 \ulnone \
+For this project, we analyzed secondary data from the 
+\f2\b\fs30 \cf3 \cb4 Data Archive on Adolescent Pregnancy and Pregnancy Prevention (DAAPPP) from the Social Science Electronic Data Library\
+
+\f0\b0\fs24 \cf0 \cb1 . The study was conducted in the mid-1980s.  Researchers surveyed adolescents visiting a San Francisco health clinic regarding their decision-making about contraceptive use. The study measured general attitudes towards contraceptive methods, social expectations about contraceptive use (or disuse), intentions to use (or not use) contraception, and sexual behavior and decision-making. Our goal was to investigate whether the data could be used to identify what behaviors, attitudes, and demographic characteristics are predictors for unprotected sex.  Specifically, we wanted to focus on employing predictors in our model that could be used to target public health interventions that could spur higher contraceptive usage among populations that are at a high risk of teenage pregnancy.  These interventions could take the form of ad campaigns, revised health curricula, and increased access to contraception at local clinics. \
+\
+\
+
+\b \ul Data Preparation
+\b0 \ulnone \
+In our analysis, we used only a subset of the available data.  We narrowed our focus to female, sexually active teens.  This seemed to be the ideal populations given that more females that males were present in the data set, certain questions in the survey pertained more to women than men, and survey directions were ambiguous for male subjects.  Moreover, because the survey instrument included many detailed questions about the nature and duration of contraception use, it seems more likely that females would have a more complete view of their personal history.  \
+\
+The raw data set contained 1016 variables.  A significant portion of these variables related to attitudes toward specific methods of contraception and extremely detailed use history. Given our purpose of targeting intervention for at risk females, the aforementioned minutia would be of little use. Thus we chose to examine only 16 variables pertaining to 234 sexually active female subjects that are observable outside of clinical context.\
+\
+
+\b ####LIST VARIABLES HERE IN TABLE OR LIST\
+
+\b0 \
+Preparing the dataset for analysis required significant data transformation and cleaning.  Upon examining the raw data, we found duplicates of the the selected 16 variables of interest.  These duplicate variables were present because the dataset was assembled from a number of different survey instruments. Some subjects had responses for items in only one of the duplicate variables and others for both.  In order to assemble our set of complete and atomic features for our analysis, we needed to combine these variables and did so on a case by case basis.\
+\
+The documentation surrounding the coding of the data, was rather incomplete, so we needed to piece together an understanding of the meaning of the raw data using an incomplete data dictionary and examining the survey instruments themselves.  In particular, "NAs," which were encoded as -9 in the raw data, posed a problem in a number of the 16 predictors, father's education, mother's education, educational aspiration, drinking frequency, drug use frequency, and smoking frequency.  We had to make assumptions regarding the nature of these "NAs."  For father's education and mother's education, the survey did not include an option for subjects to indicate that they did not have or know either of their parents or their parents' level of educational attainment.  As a result, we included the "NAs" as a category of that variable, as it may have been indicative of their underlying family circumstance.  \
+\
+The frequency substance use variables represented a different problem in that, there was for each of these questions, a response category of "never."  For the vast majority of subjects, "NAs" were present in each of these three variables indicating that their survey instruments did not contain these questions.  We did not want to throw out these observations given the size of our dataset, so we code them as a distinct category.  We were careful not to use any of the "NA" categories as base because we did not know their true composition. *** explain why it was ok to do this****\
+\
+
+\b ****Write section about changing the categories of**** (the motivation for these changes will be discussed in the "Analysis" section
+\b0 \
+\
+\
+
+\b \ul Analysis\
+\
+
+\b0 \ulnone Full model for unconverted data\
+\
+(motivate the transition)\
+\
+full model converted data\
+\
+Notes about other methods that we attempted to use -\
+LEAPS\
+LASSO\
+\
+Full model search- conclusion - AIC highest, main takeaway- life is easy for public health workers because they can target teenage pregnancy and smoking in the same way! woooo! \
+\
+
+\b \ul Discussion\
+\
+
+\b0 \ulnone mother's level of education \
+-age, temporal independence/depennce. censored data\
+-ethnicity - and ethnicity and religion - ethnicity explains the majority of the education
+\b \
+
+\b0 \
+\
+\
+}
