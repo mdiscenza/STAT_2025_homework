@@ -1,8 +1,9 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1187
 \cocoascreenfonts1{\fonttbl\f0\fnil\fcharset0 Cambria;\f1\fswiss\fcharset0 ArialMT;\f2\fswiss\fcharset0 Helvetica;
-}
+\f3\fnil\fcharset0 LucidaGrande;\f4\fnil\fcharset0 Consolas;}
 {\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red59\green58\blue98;\red189\green194\blue223;
-}
+\red43\green39\blue19;\red255\green255\blue255;\red26\green26\blue26;\red234\green234\blue234;\red118\green57\blue12;
+\red19\green67\blue109;\red37\green127\blue159;}
 \margl1440\margr1440\vieww22860\viewh12940\viewkind0
 \deftab720
 \pard\pardeftab720\ri720
@@ -27,17 +28,20 @@ Project\
 
 \f0\fs24 \cf0 \
 \
+\pard\pardeftab720\ri720
 
-\b \ul Introduction and Purpose
+\b \cf0 \ul \ulc0 Introduction and Purpose
 \b0 \ulnone \
 For this project, we analyzed secondary data from the 
 \f2\b\fs30 \cf3 \cb4 Data Archive on Adolescent Pregnancy and Pregnancy Prevention (DAAPPP) from the Social Science Electronic Data Library\
+\pard\pardeftab720\ri720
 
 \f0\b0\fs24 \cf0 \cb1 . The study was conducted in the mid-1980s.  Researchers surveyed adolescents visiting a San Francisco health clinic regarding their decision-making about contraceptive use. The study measured general attitudes towards contraceptive methods, social expectations about contraceptive use (or disuse), intentions to use (or not use) contraception, and sexual behavior and decision-making. Our goal was to investigate whether the data could be used to identify what behaviors, attitudes, and demographic characteristics are predictors for unprotected sex.  Specifically, we wanted to focus on employing predictors in our model that could be used to target public health interventions that could spur higher contraceptive usage among populations that are at a high risk of teenage pregnancy.  These interventions could take the form of ad campaigns, revised health curricula, and increased access to contraception at local clinics. \
 \
 \
+\pard\pardeftab720\ri720
 
-\b \ul Data Preparation
+\b \cf0 \ul \ulc0 Data Preparation
 \b0 \ulnone \
 In our analysis, we used only a subset of the available data.  We narrowed our focus to female, sexually active teens.  This seemed to be the ideal populations given that more females that males were present in the data set, certain questions in the survey pertained more to women than men, and survey directions were ambiguous for male subjects.  Moreover, because the survey instrument included many detailed questions about the nature and duration of contraception use, it seems more likely that females would have a more complete view of their personal history.  \
 \
@@ -45,21 +49,32 @@ The raw data set contained 1016 variables.  A significant portion of these varia
 \
 
 \b ####LIST VARIABLES HERE IN TABLE OR LIST\
+\pard\pardeftab720\ri720
 
-\b0 \
+\b0 \cf0 \
 Preparing the dataset for analysis required significant data transformation and cleaning.  Upon examining the raw data, we found duplicates of the the selected 16 variables of interest.  These duplicate variables were present because the dataset was assembled from a number of different survey instruments. Some subjects had responses for items in only one of the duplicate variables and others for both.  In order to assemble our set of complete and atomic features for our analysis, we needed to combine these variables and did so on a case by case basis.\
 \
 The documentation surrounding the coding of the data, was rather incomplete, so we needed to piece together an understanding of the meaning of the raw data using an incomplete data dictionary and examining the survey instruments themselves.  In particular, "NAs," which were encoded as -9 in the raw data, posed a problem in a number of the 16 predictors, father's education, mother's education, educational aspiration, drinking frequency, drug use frequency, and smoking frequency.  We had to make assumptions regarding the nature of these "NAs."  For father's education and mother's education, the survey did not include an option for subjects to indicate that they did not have or know either of their parents or their parents' level of educational attainment.  As a result, we included the "NAs" as a category of that variable, as it may have been indicative of their underlying family circumstance.  \
 \
 The frequency substance use variables represented a different problem in that, there was for each of these questions, a response category of "never."  For the vast majority of subjects, "NAs" were present in each of these three variables indicating that their survey instruments did not contain these questions.  We did not want to throw out these observations given the size of our dataset, so we code them as a distinct category.  We were careful not to use any of the "NA" categories as base because we did not know their true composition. *** explain why it was ok to do this****\
 \
+\pard\pardeftab720\ri720
 
-\b ****Write section about changing the categories of**** (the motivation for these changes will be discussed in the "Analysis" section
+\b \cf0 ****Write section about changing the categories of**** (the motivation for these changes will be discussed in the "Analysis" section
 \b0 \
 \
 \
 
 \b \ul Analysis\
+\
+\pard\pardeftab720\ri720
+
+\b0 \cf0 \ulnone Notes about other methods that we attempted to use -\
+LEAPS - does not work likely because it was based on predictive performance (AIC) and none of the models had really very different AICs (from our exhaustive model search)\
+\
+LASSO\
+Neither of them worked, so we proceeded in a different direction
+\b \ul \
 \
 
 \b0 \ulnone Full model for unconverted data\
@@ -68,22 +83,55 @@ The frequency substance use variables represented a different problem in that, t
 \
 full model converted data\
 \
-Notes about other methods that we attempted to use -\
-LEAPS\
-LASSO\
+\
 \
 Full model search- conclusion - AIC highest, main takeaway- life is easy for public health workers because they can target teenage pregnancy and smoking in the same way! woooo! \
 \
-
-\b \ul Discussion\
+interpretation of coefficients - interpretation of NAs coefficients- gives some sense of what the latent distribution of that variable associated with the population for which it was not observed.  for instance in in smoking - positive coefficient associated with both smoking and the no.response category, which could mean that assuming that the act of non-response was itself not an informative behavior, that \
 \
+\pard\pardeftab720\ri720
 
-\b0 \ulnone mother's level of education \
+\b \cf0 \ul \ulc0 Discussion\
+\
+\pard\pardeftab720\ri720
+
+\b0 \cf0 \ulnone mother's level of education \
 -age, temporal independence/depennce. censored data\
--ethnicity - and ethnicity and religion - ethnicity explains the majority of the education
+-ethnicity - and ethnicity and religion - ethnicity explains the majority of the education\
+- where they visited- where they took the survey, matters significantly, proxy for socieo economic status, should have incorporated as one of our features\
+\
+even if we did not fit the best model, but going through and selecting specific categories of the factor variables, we do get a sense of which groups of the factors should 
 \b \
 
 \b0 \
+\
+\pard\pardeftab720\sl360\sa280
+
+\f3\fs28 \cf5 \cb6 Another option is to use 
+\f4 \cf7 \cb8 sidewaystable
+\f3 \cf5 \cb6  from the 
+\f4 \cf7 \cb8 rotating
+\f3 \cf5 \cb6  package.\
+\pard\pardeftab720\sl360
+
+\f4\fs24 \cf9 \cb8 \\documentclass\cf10 \{\cf0 article\cf10 \}\cf0 \
+\cf9 \\usepackage\cf10 \{\cf0 rotating\cf10 \}\cf0 \
+\
+\cf9 \\begin\cf10 \{\cf0 document\cf10 \}\cf0 \
+\
+\cf9 \\begin\cf10 \{\cf0 sidewaystable\cf10 \}\cf0 \
+    \cf9 \\centering\cf0 \
+    \cf9 \\caption\cf10 \{\cf0 Your caption here\cf10 \}\cf0 \
+   \cf9 \\begin\cf10 \{\cf0 tabular\cf10 \}\{\cf0 ll\cf10 \}\cf0 \
+    First First \cf11 &\cf0  First Second\cf9 \\\\\cf0 \
+    Second First \cf11 &\cf0  Second Second\
+    \cf9 \\end\cf10 \{\cf0 tabular\cf10 \}\cf0 \
+\cf9 \\end\cf10 \{\cf0 sidewaystable\cf10 \}\cf0 \
+\
+\cf9 \\end\cf10 \{\cf0 document\cf10 \}\cf5 \
+\pard\pardeftab720\ri720
+
+\f0 \cf0 \cb1 \
 \
 \
 }

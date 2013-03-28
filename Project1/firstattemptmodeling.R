@@ -140,7 +140,8 @@ all_possible_models <- function(x.column.names, y.col.name){
 
 apply_formula <- function(model, cv=5){ #make the default value for this function 5
     fitmodel <- glm(model, family=binomial, data=trimed_data)
-    return (fitmodel$aic)
+    explained.deviance <- (fitmodel$null.deviance - fitmodel$deviance)/fitmodel$null.deviance
+    return(cbind(fitmodel$aic,explained.deviance))
 }
 
 # apply_formula <- function(model, cv=5){ #make the default value for this function 5
@@ -163,19 +164,22 @@ FORMULAS <- all_possible_models(
 )
 #costf=function(r, pi = 0) mean((r-round(pi))^2)
 FORMULAS[length(FORMULAS)+1] <- "y ~ 1" # add the null model
-crit <- as.vector(sapply(X=FORMULAS, FUN = apply_formula))
+crit <- sapply(X=FORMULAS, FUN = apply_formula)
 # crit <- sapply(X=FORMULAS, FUN = apply_formula)
-
+crit <- t(crit)
 names(crit) = NULL
 model.selection <- as.data.frame(cbind(FORMULAS, crit))
 colnames(model.selection)[2] <- "AIC"
-model.selection <- model.selection[order(crit),]
+colnames(model.selection)[3] <- "Explained.Deviance"
+model.selection <- model.selection[order(model.selection$AIC),]
+model.selection <- model.selection[order(model.selection$Explained.Deviance,decreasing=TRUE),]
 
 
 
 
-lr1_fuckkkkkkk<-glm(sex_wo_contraception ~ mothers_education+smoking_freq,data=study_data_converted,family=binomial(link=logit))
-summary(lr1_fuckkkkkkk)
+
+small.model<-glm(sex_wo_contraception ~ mothers_education+smoking_freq,data=study_data_converted,family=binomial(link=logit))
+summary(small.model)
 
 
 
