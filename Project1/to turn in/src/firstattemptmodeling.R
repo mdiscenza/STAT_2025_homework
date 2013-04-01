@@ -15,7 +15,7 @@ summary(study_data)
 
 #Running Logistic Regression 1 (Analysis 1) - the full model
 ########################################
-full_model<-sex_wo_contraception~age+ethnicity+religion+highest_yr_school_completed+know_preg_peera+fathers_education+mothers_education+educational_aspiration+dont_participate_in_school_activites_1+smoking_freq+drinking_freq+drug_freq+age_frist_drinking_a+age_frist_drinking_b
+full_model<-sex_wo_contraception~age+ethnicity+religion+highest_yr_school_completed+know_preg_peera+fathers_education+mothers_education+educational_aspiration+dont_participate_in_school_activites_1+smoking_freq+drinking_freq+drug_freq
 
 lr1<-glm(full_model,data=study_data,family=binomial(link=logit))
 summary(lr1)
@@ -69,10 +69,13 @@ summary(study_data_converted)
 
 #Running Logistic Regression 1 (Analysis 1) - the full model
 ########################################
-full_model<-sex_wo_contraception~age+ethnicity+religion+highest_yr_school_completed+know_preg_peera+fathers_education+mothers_education+educational_aspiration+dont_participate_in_school_activites_1+smoking_freq+drinking_freq+drug_freq+age_frist_drinking_a+age_frist_drinking_b
+full_model<-sex_wo_contraception~age+ethnicity+religion+highest_yr_school_completed+know_preg_peera+fathers_education+mothers_education+educational_aspiration+dont_participate_in_school_activites_1+smoking_freq+drinking_freq+drug_freq+age_frist_drinking
 
 lr1c<-glm(full_model,data=study_data_converted,family=binomial(link=logit))
 summary(lr1c)
+#explained deviance
+(lr1c$null.deviance - lr1c$deviance)/lr1c$null.deviance
+
 AIC(lr1c)
 plot(lr1c)
 
@@ -90,21 +93,28 @@ yc<-as.matrix(study_data_converted[,1])
 x_matc <- model.matrix(partial_model, data=study_data_converted[,1:13])
 #running 
 glmnetModelc_lasso <- glmnet(x_matc,yc,family="binomial",alpha=1)
-plot(glmnetModelc)
+plot(glmnetModelc_lasso)
 my.cvc <- cv.glmnet(x_matc,yc,family="binomial")
-predict(glmnetModelc,type="coef",s=my.cvc$lambda.min)
+predict(glmnetModelc_lasso,type="coef",s=my.cvc$lambda.min)
+glmnetModelc_lasso$nulldev
+#explained.deviance:
+(glmnetModelc_lasso$nulldev - glmnetModelc_lasso$nulldev)/glmnetModelc_lasso$nulldev
+my.cvc$
 
 glmnetModelc_ridge <- glmnet(x_matc,yc,family="binomial",alpha=0)
 plot(glmnetModelc_ridge)
 my.cvc <- cv.glmnet(x_matc,yc,family="binomial")
 predict(glmnetModelc_ridge,type="coef",s=my.cvc$lambda.min)
 
+
 #Leaps (Analysis 3)
 ########################################
-library(leaps)
-model_spec.c <- regsubsets(x_matc,y,method="forward")
-model_spec.c
+full_model<-sex_wo_contraception~age+ethnicity+religion+highest_yr_school_completed+know_preg_peera+fathers_education+mothers_education+educational_aspiration+dont_participate_in_school_activites_1+smoking_freq+drinking_freq+drug_freq
 
+library(leaps)
+subsets <- regsubsets(sex_wo_contraception~age+ethnicity+religion+highest_yr_school_completed+know_preg_peera+fathers_education+mothers_education+educational_aspiration+dont_participate_in_school_activites_1+smoking_freq+drinking_freq+drug_freq, data=study_data_converted, method="forward", nbest=2)
+plot(subsets)
+summary(subsets)
 #this didn't work, need to be in matrix form
 x=as.matrix(study_data_converted[,2:13])
 y=as.matrix(study_data_converted[,1])
@@ -174,6 +184,8 @@ colnames(model.selection)[3] <- "Explained.Deviance"
 model.selection <- model.selection[order(model.selection$AIC),]
 model.selection <- model.selection[order(model.selection$Explained.Deviance,decreasing=TRUE),]
 
+model.selection$FORMULAS = NULL
+head(model.selection)
 
 
 

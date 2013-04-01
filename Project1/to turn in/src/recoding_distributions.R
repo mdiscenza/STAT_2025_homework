@@ -3,7 +3,7 @@ study_data_converted <- study_data
 #re_combining variables:
 
 
-####################
+###################
 #education
 ####################
 code_education <- function(response){

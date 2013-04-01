@@ -203,7 +203,7 @@ CV.PredictionError[1] <- \hlfunctioncall{cv.glm}(data = fish, glmfit = m1, K = k
 CV.PredictionError[1]
 \end{alltt}
 \begin{verbatim}
-## [1] 103.9
+## [1] 104.1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -263,7 +263,7 @@ CV.PredictionError[2] <- \hlfunctioncall{cv.glm}(data = fish, glmfit = zip1, K =
 CV.PredictionError[2]
 \end{alltt}
 \begin{verbatim}
-## [1] 106.5
+## [1] 105.1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -310,7 +310,7 @@ CV.PredictionError[3] <- \hlfunctioncall{cv.glm}(data = fish, glmfit = H1.P, K =
 CV.PredictionError[3]
 \end{alltt}
 \begin{verbatim}
-## [1] 105.7
+## [1] 105.4
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -364,7 +364,7 @@ CV.PredictionError[4] <- \hlfunctioncall{cv.glm}(data = fish, glmfit = m1, K = k
 CV.PredictionError[4]
 \end{alltt}
 \begin{verbatim}
-## [1] 103.6
+## [1] 104.3
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -417,7 +417,7 @@ CV.PredictionError[5] <- \hlfunctioncall{cv.glm}(data = fish, glmfit = zip2, K =
 CV.PredictionError[5]
 \end{alltt}
 \begin{verbatim}
-## [1] 105.2
+## [1] 104.9
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -472,7 +472,7 @@ CV.PredictionError[6] <- \hlfunctioncall{cv.glm}(data = fish, glmfit = H1.NB, K 
 CV.PredictionError[6]
 \end{alltt}
 \begin{verbatim}
-## [1] 104.1
+## [1] 104
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -482,12 +482,12 @@ Comparing all of the models, we see that each provides pretty similar CV predict
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
 ##      model                             AIC                CV.PredictionError
-## [1,] "Unaltered Poisson"               NA                 "103.89448"       
-## [2,] "Zero-inflated Poisson"           "1521.46298636589" "106.534"         
-## [3,] "Zero-adjusted Poisson"           "1519.23646005864" "105.74576"       
-## [4,] "Unaltered Negative Binomial"     "820.443998111794" "103.56096"       
-## [5,] "Zero-inflated negative binomial" "809.078814163749" "105.22224"       
-## [6,] "Zero-altered negative binomial"  "808.317966810981" "104.08848"
+## [1,] "Unaltered Poisson"               NA                 "104.07024"       
+## [2,] "Zero-inflated Poisson"           "1521.46298636589" "105.13648"       
+## [3,] "Zero-adjusted Poisson"           "1519.23646005864" "105.4268"        
+## [4,] "Unaltered Negative Binomial"     "820.443998111794" "104.27016"       
+## [5,] "Zero-inflated negative binomial" "809.078814163749" "104.9332"        
+## [6,] "Zero-altered negative binomial"  "808.317966810981" "104.0428"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

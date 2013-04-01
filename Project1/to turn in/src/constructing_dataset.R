@@ -16,8 +16,7 @@ study_data <-  as.data.frame(cbind(fem_preg_sex$CNBM5130,fem_preg_sex$CNCM5152, 
 
 colnames(study_data) <- c("sex_wo_contraception","know_about_pill", "know_about_condoms", "know_about_diaphram","know_about_withdrawl", "know_about_pill_b", "know_about_condoms_b", "know_about_diaphram_b","know_about_withdrawl_b", "age", "ethnicity", "religion", "highest_yr_school_completed", "school_enrollment", "scare_atleast1_prega","know_preg_peera", "know_preg_peerb", "birth_control_used_by_peers", "friends_use_contraception_a", "friends_use_contraception_b", "fathers_education", "mothers_education", "educational_aspiration", "dont_participate_in_school_activites_1", "dont_participate_in_school_activites_2", "smoking_freq", "drinking_freq", "drug_freq", "age_frist_drinking")
 
-table(study_data$age_frist_drinking_a)
-table(study_data$age_frist_drinking_b)
+
 
 #exploring the distribution of some of the variables
 # cbind(study_data$know_about_pill, study_data$know_about_pill_b)
